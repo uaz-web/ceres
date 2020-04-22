@@ -1,0 +1,2 @@
+slack_hook_url = ""
+frequency_expression = "rate(2 minutes)"
