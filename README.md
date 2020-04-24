@@ -1,12 +1,13 @@
 # Ceres - Realtime Website Uptime Monitoring and Reporting
-Developed by the Campus Web Services Team at the University of Arizona
+Developed by the Campus Web Services Team at the University of Arizona.
 
 ### Description 
 Ceres performs realtime uptime monitoring for a specificed list of URLs using serverless technologies. 
 
-Ceres will notify a specified Slack Channel when an outage occurs. It will then send another notification when the outage is over, including an approximate duration of the outage. It will also keep a record of all incidents in a DynamoDB table which can be used for further analysis of trends over time. 
+Ceres will notify a specified Slack Channel when an outage occurs. It will then send another notification when the outage is over, including an approximate duration of the outage. It will also keep a record of all incidents in a DynamoDB table which can be used for further analysis. 
 
 ### Pre-requisites 
+The following need to be installed and configured in order to deploy Ceres. 
 * [Amazon Web Services Account](http://aws.amazon.com/)
 * [AWS CLI](https://aws.amazon.com/cli/)
 * [Local Terraform Installation](https://www.terraform.io/downloads.html) 
@@ -58,7 +59,9 @@ Ceres utilizes two DynamoDB tables. The first keeps a running log of all site ou
 The S3 Bucket that gets deployed stores the sites-list.json file. 
 
 ##### Lambda Functions
-Ceres deploys two Lambda functions. The first processes the sites-list.json file and creates a seperate SQS message for each. The second Lambda function is trigger based on these messages on a one-to-one basis and performs the actual anaylsis of the sites.
+Ceres deploys two Lambda functions. The first (fill_queue) processes the sites-list.json file and creates a seperate SQS message for each. The second Lambda function (ping) is triggered based on these messages on a one-to-one basis and performs the actual anaylsis of the sites. It also sends notification messages to Slack and logs outages in the database. 
 
 ##### Included Scripts
-THe lambda-prep.sh script bundles up the Python dependencies and code for each Lambda function. The cleanup.sh script will remove the zip and build files in case you make changes to the python Lambda code and want to remove the build and zip files before rebuilding. 
+The lambda-prep.sh script bundles up the Python dependencies and code for each Lambda function. 
+
+The cleanup.sh script will remove the zip and build files in case you make changes to the Python Lambda code before redeploying. 
