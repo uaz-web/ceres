@@ -4,11 +4,14 @@ Developed by the Campus Web Services Team at the University of Arizona
 ### Description 
 Ceres performs realtime uptime monitoring for a specificed list of URLs using serverless technologies. 
 
+Ceres will notify a specified Slack Channel when an outage occurs. It will then send another notification when the outage is over, including an approximate duration of the outage. It will also keep a record of all incidents in a DynamoDB table which can be used for further analysis of trends over time. 
+
 ### Pre-requisites 
 * [Amazon Web Services Account](http://aws.amazon.com/)
 * [AWS CLI](https://aws.amazon.com/cli/)
 * [Local Terraform Installation](https://www.terraform.io/downloads.html) 
 * [Local Python 3 Installation](https://www.python.org/)
+* [Slack Channel Web Hook](https://api.slack.com/messaging/webhooks)
 
 ### How to Use
 1. Copy the ceres.tfvars.example file to ceres.tfvars
@@ -16,7 +19,7 @@ Ceres performs realtime uptime monitoring for a specificed list of URLs using se
 cp ceres.tfvars.example ceres.tfvars
 ```
 
-2. Edit the variables in ceres.tfvars
+2. Edit the variables in ceres.tfvars, including updating the Slack Channel Web Hook
 
 3. Initialize Terraform Project
 ```bash
@@ -56,3 +59,6 @@ The S3 Bucket that gets deployed stores the sites-list.json file.
 
 ##### Lambda Functions
 Ceres deploys two Lambda functions. The first processes the sites-list.json file and creates a seperate SQS message for each. The second Lambda function is trigger based on these messages on a one-to-one basis and performs the actual anaylsis of the sites.
+
+##### Included Scripts
+THe lambda-prep.sh script bundles up the Python dependencies and code for each Lambda function. The cleanup.sh script will remove the zip and build files in case you make changes to the python Lambda code and want to remove the build and zip files before rebuilding. 
