@@ -15,31 +15,33 @@ The following need to be installed and configured in order to deploy Ceres.
 * [Slack Channel Web Hook](https://api.slack.com/messaging/webhooks)
 
 ### How to Use
-1. Copy the ceres.tfvars.example file to ceres.tfvars
+1. Replace the sites in the sites-list.json file with the URLs that you want to monitor
+
+2. Copy the ceres.tfvars.example file to ceres.tfvars
 ```bash
 cp ceres.tfvars.example ceres.tfvars
 ```
 
-2. Edit the variables in ceres.tfvars, including updating the Slack Channel Web Hook
+3. Edit the variables in ceres.tfvars, including updating the Slack Channel Web Hook
 
-3. Initialize Terraform Project
+4. Initialize Terraform Project
 ```bash
 terraform init
 ```
 
-4. Create Deployment Zip Files
+5. Create Deployment Zip Files
 ```bash
 ./lambda-prep.sh
 ```
 
-5. Deploy to AWS
+6. Deploy to AWS
 ```bash
 terraform apply -var-file ceres.tfvars
 ```
 
-6. Pick Region and Confirm Deployment
+7. Pick Region and Confirm Deployment
 
-7. That's it! You're up and monitoring your sites!
+8. That's it! You're up and monitoring your sites!
 
 ### Description of Resources
 

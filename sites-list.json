@@ -1,8 +1,6 @@
 {
     "sites": [
         "https://www.arizona.edu/",
-        "https://example.com/",
-        "https://www.google.com/",
-        "https://www.amazon.com/"
+        "https://example.com/"
     ]
 }
