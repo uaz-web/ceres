@@ -6,6 +6,9 @@ Ceres performs realtime uptime monitoring for a specificed list of URLs using se
 
 Ceres will notify a specified Slack Channel when an outage occurs. It will then send another notification when the outage is over, including an approximate duration of the outage. It will also keep a record of all incidents in a DynamoDB table which can be used for further analysis. 
 
+### General Notes
+* Ceres currently attempts to downgrade all URLs to use HTTP instead of HTTPS in an attempt to play better with non-HTTPS sites. This can be changed in the ping.py script. 
+
 ### Pre-requisites 
 The following need to be installed and configured in order to deploy Ceres. 
 * [Amazon Web Services Account](http://aws.amazon.com/)
